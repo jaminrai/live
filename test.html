@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beautiful Collapsible Box</title>
+  <style>
+    :root {
+      --primary-team: #47663b;
+      --primary-dark-team: #719963;
+      --radius: 12px;
+      --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+
+    .container-team {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .collapsible {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .collapsible:hover {
+      box-shadow: 0 20px 35px -5px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .collapsible-header {
+      padding: 1.5rem 2rem;
+      background: linear-gradient(135deg, var(--primary-team), var(--primary-dark-team));
+      color: white;
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 600;
+      font-size: 1.35rem;
+      letter-spacing: -0.5px;
+    }
+
+    .collapsible-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1) 50%, transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s;
+    }
+
+    .collapsible-header:hover::before {
+      transform: translateX(100%);
+    }
+
+    .chevron {
+      transition: transform 0.35s ease;
+      font-size: 1.5rem;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      margin-left: 1rem;
+      flex-shrink: 0;
+    }
+
+    .collapsible input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      z-index: -1;
+    }
+
+    .collapsible-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, padding 0.5s ease;
+      background: white;
+    }
+
+    .content-inner {
+      padding: 0 2rem;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
+    }
+
+    /* Open state */
+    .collapsible input[type="checkbox"]:checked ~ .collapsible-content {
+      max-height: 1000px; /* Adjust as needed */
+      padding: 2rem 0;
+    }
+
+    .collapsible input[type="checkbox"]:checked ~ .collapsible-content .content-inner {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .collapsible input[type="checkbox"]:checked ~ .collapsible-header .chevron {
+      transform: rotate(180deg);
+      background: rgba(255,255,255,0.3);
+    }
+
+    /* Deep link support - open if URL has matching #id */
+    .collapsible input[type="checkbox"]:target ~ .collapsible-content,
+    .collapsible input[type="checkbox"]:checked ~ .collapsible-content {
+      max-height: 1000px;
+      padding: 2rem 0;
+    }
+
+    .collapsible input[type="checkbox"]:target ~ .collapsible-content .content-inner,
+    .collapsible input[type="checkbox"]:checked ~ .collapsible-content .content-inner {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .collapsible input[type="checkbox"]:target ~ .collapsible-header .chevron,
+    .collapsible input[type="checkbox"]:checked ~ .collapsible-header .chevron {
+      transform: rotate(180deg);
+      background: rgba(255,255,255,0.3);
+    }
+
+    @media (max-width: 640px) {
+      .collapsible-header {
+        font-size: 1.2rem;
+        padding: 1.25rem 1.5rem;
+      }
+      .content-inner {
+        padding: 0 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container-team">
+    <h1 style="text-align:center; color:#333; margin-bottom:2rem;">Beautiful Collapsible Sections</h1>
+
+    <!-- Collapsible Section 1 -->
+    <div class="collapsible">
+      <input type="checkbox" id="collapse-section-1">
+      <label for="collapse-section-1" class="collapsible-header">
+        <span>🚀 Getting Started with Modern Web Design</span>
+        <div class="chevron">↓</div>
+      </label>
+      <div class="collapsible-content">
+        <div class="content-inner">
+          <p>This is a beautifully styled collapsible section that opens when you visit a link like <strong>#collapse-section-1</strong>.</p>
+          <ul>
+            <li>Smooth animations with cubic-bezier easing</li>
+            <li>Fully responsive design</li>
+            <li>Elegant gradient header with hover shine effect</li>
+            <li>Supports deep linking (open via URL)</li>
+            <li>Pure CSS solution - no JavaScript required!</li>
+          </ul>
+          <p>Try opening this page with: <code>yoursite.com/page.html#collapse-section-1</code></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Collapsible Section 2 -->
+    <div class="collapsible">
+      <input type="checkbox" id="collapse-section-2">
+      <label for="collapse-section-2" class="collapsible-header">
+        <span>🎨 Advanced Styling Features</span>
+        <div class="chevron">↓</div>
+      </label>
+      <div class="collapsible-content">
+        <div class="content-inner">
+          <p>This section demonstrates the elegant design and smooth interactions.</p>
+          <p>The header has a subtle shine animation on hover, glassmorphic chevron, and perfect spacing on all devices.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Collapsible Section 2 -->
+    <div class="collapsible">
+      <input type="checkbox" id="collapse-section-3">
+      <label for="collapse-section-3" class="collapsible-header">
+        <span>🎨 Test 3</span>
+        <div class="chevron">↓</div>
+      </label>
+      <div class="collapsible-content">
+        <div class="content-inner">
+          <p>without p tag</p>
+          <p>without p tag</p>
+        </div>
+      </div>
+    </div>
+
+
+    <p style="text-align:center; margin-top:3rem; color:#666;">
+      Open sections via links:<br>
+      <a href="#collapse-section-1">Open Section 1</a> • 
+      <a href="#collapse-section-2">Open Section 2</a>
+    </p>
+  </div>
+
+</body>
+</html>
